@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    #@all_ratings = Movie.rating
   end
 
   def new
@@ -42,4 +43,14 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def moviesort
+    @movie = Movie.all
+    @movies = @movie.order("title ASC")
+  end 
+  
+  def datesort
+    @movie = Movie.all
+    @movies = @movie.order("release_date ASC")
+  end 
+  
 end

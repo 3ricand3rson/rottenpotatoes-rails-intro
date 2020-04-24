@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :movies
-  
+  get 'MovieSort', to: 'movies#moviesort', as: 'movie_sort'
+  get 'ReleaseSort', to: 'movies#datesort', as: 'date_sort'
+  #get 'moviesort', to: 'movies#moviesort', as: 'movie_sort'
   # Example resource route with options:
   #   resources :products do
   #     member do

@@ -2,13 +2,11 @@
 %h2 All Movies
 
 %table#movies.table.table-striped.col-md-12
-
-  
   %thead
     %tr
       %th#title_header=  link_to 'Movie Title', movie_sort_path()
       %th Rating
-      %th#release_date_header= link_to 'Release Date', date_sort_path()
+      %th#release_date_heade{:class => ('hilite')}= link_to 'Release Date', date_sort_path()
       
   %tbody
     - @movies.each do |movie|
