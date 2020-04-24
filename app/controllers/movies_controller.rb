@@ -11,8 +11,14 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
-    #@all_ratings = Movie.rating
+    @all_ratings = ['G','PG','PG-13','R']
+    @movies_all = Movie.all
+    if params[:sort_name].nil?
+      @movies = @movies_all
+    else
+    @movies = @movies_all.order("#{params[:sort_name]} ASC")
+    @highlight = params[:sort_name]
+    end 
   end
 
   def new
@@ -46,11 +52,13 @@ class MoviesController < ApplicationController
   def moviesort
     @movie = Movie.all
     @movies = @movie.order("title ASC")
+    @all_ratings = ['G','PG','PG-13','R']
   end 
   
   def datesort
     @movie = Movie.all
     @movies = @movie.order("release_date ASC")
+    @all_ratings = ['G','PG','PG-13','R']
   end 
   
 end
