@@ -13,16 +13,20 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = ['G','PG','PG-13','R']
     @ratings = Movie.with_ratings
-    @selected_ratings = params[:ratings]
+    
+    @selected_ratings = params[:ratings] || session[:ratings] || {}
     
     if @selected_ratings == {}
       @selected_ratings = Hash[@all_ratings.map {|rating| [rating, rating]}]
     end
-    if @selected_ratings.nil?
-      @movies_all = Movie.all
-    else
-      @movies_all = Movie.where(rating: @selected_ratings.keys)
-    end 
+    
+    @movies_all = Movie.where(rating: @selected_ratings.keys)
+    
+    if params[:ratings] != session[:ratings]
+      
+      session[:ratings] = @selected_ratings
+      redirect_to :ratings => @selected_ratings and return
+    end
     
     if params[:sort_name].nil?
       @movies = @movies_all
@@ -30,6 +34,9 @@ class MoviesController < ApplicationController
     @movies = @movies_all.order("#{params[:sort_name]} ASC")
     @highlight = params[:sort_name]
     end 
+    
+    
+    
   end
 
   def new
